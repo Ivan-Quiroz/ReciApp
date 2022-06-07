@@ -4,7 +4,7 @@ const router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const UserServices = require("../services/User.services");
-
+//login
 router.post("/", UserServices.CheckNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -29,7 +29,7 @@ router.post("/", UserServices.CheckNotAuthenticated, async (req, res) => {
       .end();
   }
 });
-
+//login
 router.post(
   "/login",
   UserServices.CheckNotAuthenticated,
@@ -38,7 +38,7 @@ router.post(
     failureFlash: true,
   })
 );
-
+// cerrar sesión 
 router.delete("/logout", async (req, res, next) => {
   try {
     req.logOut((error) => {
