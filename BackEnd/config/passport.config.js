@@ -5,6 +5,7 @@ function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
     try {
       const user = await getUserByEmail(email);
+
       if (user === null) {
         console.log("No user with that email");
         return done(null, false, { message: "No user with that email." });

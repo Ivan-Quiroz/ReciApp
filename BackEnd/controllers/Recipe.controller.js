@@ -11,9 +11,9 @@ router.get("/", UserServices.CheckAuthenticated, async (req, res) => {
     const recipe = await RecipeServices.GetRecipe(req.headers.recipeid);
 
     if (recipe === null || recipe.message !== undefined)
-      return res.status(400).send(recipe);
+      return res.status(400).send(recipe).end();
 
-    return res.status(200).send(recipe);
+    return res.status(200).send(recipe).end();
   } catch (error) {
     return res
       .status(500)
@@ -60,7 +60,7 @@ router.patch("/", UserServices.CheckAuthenticated, async (req, res) => {
       recipe
     );
 
-    return res.sendStatus(200).send(updatedRecipe);
+    return res.sendStatus(200).send(updatedRecipe).end();
   } catch (error) {
     return res
       .status(500)
@@ -78,7 +78,7 @@ router.delete("/", UserServices.CheckAuthenticated, async (req, res) => {
     if (responseDelete.message !== undefined)
       return res.status(400).send(responseDelete.message);
 
-    return res.status(200).send(responseDelete);
+    return res.status(200).send(responseDelete).end();
   } catch (error) {
     return res
       .status(500)
@@ -91,7 +91,7 @@ router.post("/home", UserServices.CheckAuthenticated, async (req, res) => {
   try {
     const recipes = await RecipeServices.GetByUserId(req.headers.userid);
 
-    if (recipes.fault === undefined) return res.status(400).send(recipes).end();
+    if (recipes.fault !== undefined) return res.status(400).send(recipes).end();
 
     return res.status(200).send(recipes).end();
   } catch (error) {

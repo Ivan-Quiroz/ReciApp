@@ -19,13 +19,14 @@ router.post("/", UserServices.CheckNotAuthenticated, async (req, res) => {
     if (responseMongodb === undefined) return res.status(400);
 
     if (responseMongodb.message !== undefined)
-      return res.status(400).send(responseMongodb);
+      return res.status(400).send(responseMongodb).end();
 
-    return res.sendStatus(201).send(responseMongodb);
+    return res.status(201).send(responseMongodb).end();
   } catch (error) {
     return res
       .status(400)
-      .send({ fault: error.stringValue, message: error.message });
+      .send({ fault: error.stringValue, message: error.message })
+      .end();
   }
 });
 
@@ -48,7 +49,8 @@ router.delete("/logout", async (req, res, next) => {
   } catch (error) {
     return res
       .status(400)
-      .send({ fault: error.stringValue, message: error.message });
+      .send({ fault: error.stringValue, message: error.message })
+      .end();
   }
 });
 
