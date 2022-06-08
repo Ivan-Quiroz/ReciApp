@@ -18,11 +18,7 @@
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
                         </h4>
-                        <v-form
-                          method="POST"
-                          action="http://localhost:3000/user"
-                          @submit.prevent="submitForm"
-                        >
+                        <v-form @submit.prevent="submitForm">
                           <v-text-field
                             id="name"
                             label="FirstName"

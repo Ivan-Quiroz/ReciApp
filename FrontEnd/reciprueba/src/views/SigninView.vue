@@ -36,10 +36,11 @@
                         <h4 class="text-center mt-4">
                           Ingrese correo y contraseña
                         </h4>
-                        <v-form>
+                        <v-form @submit.prevent="login">
                           <v-text-field
                             label="Email"
-                            name="Email"
+                            name="email"
+                            id="email"
                             prepend-icon="email"
                             type="text"
                             color="teal accent-3"
@@ -52,9 +53,13 @@
                             type="password"
                             color="teal accent-3"
                           />
+                          <div class="text-center mt-3">
+                            <v-btn rounded color="orange" type="submit"
+                              >SIGN IN</v-btn
+                            >
+                          </div>
                         </v-form>
                         <div class="text-center mt-3">
-                          <v-btn rounded color="orange">SIGN IN</v-btn>
                           <v-btn rounded color="orange" @click="goToSignup"
                             >SIGN UP</v-btn
                           >
@@ -85,15 +90,35 @@
 
 <script>
 //import {inject} from 'vue';
+import axios from "axios";
 
 export default {
   data: () => ({
-    step: 1,
+    user: {
+      email: "",
+      password: "",
+    },
   }),
   props: {
     source: String,
   },
   methods: {
+    login(e) {
+      this.user.email = e.target.elements.email.value;
+      this.user.password = e.target.elements.password.value;
+
+      const options = {
+        method: "POST",
+        url: "http://localhost:3000/user/login",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        data: this.user,
+      };
+
+      axios(options)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    },
+
     goToSignup() {
       this.$router.push("signup");
     },
