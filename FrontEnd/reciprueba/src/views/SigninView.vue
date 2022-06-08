@@ -12,20 +12,30 @@
                       <v-card-text class="mt-12">
                         <h1
                           class="text-center display-2 teal--text text--accent-3"
-                        >Inicio de sesión</h1>
+                        >
+                          Inicio de sesión
+                        </h1>
                         <div class="text-center mt-4">
                           <v-btn class="mx-2" fab color="white" outlined>
                             <v-icon>mdi-facebook</v-icon>
                           </v-btn>
 
-                          <v-btn @click='IngresarGoogle' class="mx-2" fab color="white" outlined>
+                          <v-btn
+                            @click="IngresarGoogle"
+                            class="mx-2"
+                            fab
+                            color="white"
+                            outlined
+                          >
                             <v-icon>mdi-google</v-icon>
                           </v-btn>
                           <v-btn class="mx-2" fab color="white" outlined>
                             <v-icon>mdi-linkedin</v-icon>
                           </v-btn>
                         </div>
-                        <h4 class="text-center mt-4">Ingrese correo y contraseña</h4>
+                        <h4 class="text-center mt-4">
+                          Ingrese correo y contraseña
+                        </h4>
                         <v-form>
                           <v-text-field
                             label="Email"
@@ -44,11 +54,12 @@
                           />
                         </v-form>
                         <div class="text-center mt-3">
-                        <v-btn rounded color="orange">SIGN IN</v-btn>
-                        <v-btn rounded color="orange">SIGN UP</v-btn>
-                      </div>
+                          <v-btn rounded color="orange">SIGN IN</v-btn>
+                          <v-btn rounded color="orange" @click="goToSignup"
+                            >SIGN UP</v-btn
+                          >
+                        </div>
                       </v-card-text>
-                      
                     </v-col>
                   </v-row>
                 </v-window-item>
@@ -56,7 +67,9 @@
                   <v-row class="fill-height">
                     <v-col cols="12" md="4" class="teal accent-3">
                       <div class="text-center">
-                        <v-btn rounded outlined dark @click="step--">Ingresar</v-btn>
+                        <v-btn rounded outlined dark @click="step--"
+                          >Ingresar</v-btn
+                        >
                       </div>
                     </v-col>
                   </v-row>
@@ -73,30 +86,17 @@
 <script>
 //import {inject} from 'vue';
 
-
 export default {
   data: () => ({
-    step: 1
+    step: 1,
   }),
   props: {
-    source: String
+    source: String,
   },
-    methods: {
-    async IngresarGoogle(){
-      try{
-
-      const googleUser = await this.$gAuth.signIn();
-
-      if(!googleUser){
-        return null
-      }
-
-       this.user = googleUser.googleBasicProfile().getEmail();
-      } catch (error) {
-        console.log(error);
-        return
-    }
-    }
+  methods: {
+    goToSignup() {
+      this.$router.push("signup");
+    },
   },
 };
 </script>

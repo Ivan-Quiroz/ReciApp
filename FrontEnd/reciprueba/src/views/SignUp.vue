@@ -21,6 +21,7 @@
                         <v-form
                           method="POST"
                           action="http://localhost:3000/user"
+                          @submit.prevent="submitForm"
                         >
                           <v-text-field
                             id="name"
@@ -54,16 +55,16 @@
                             type="password"
                             color="teal accent-3"
                           />
-                          <v-btn rounded color="orange" type="submit">
-                            SIGN UP
-                          </v-btn>
+                          <div class="text-center mt-3">
+                            <v-btn rounded color="orange" type="submit"
+                              >SIGN UP</v-btn
+                            >
+                          </div>
                         </v-form>
                         <div class="text-center mt-3">
-                          <v-btn
-                            rounded
-                            color="orange"
-                            @click="preventDefault(e)"
-                            >SIGN UP</v-btn
+                          <h4>Already registered?</h4>
+                          <v-btn rounded color="orange" @click="goToSignin"
+                            >SIGN IN</v-btn
                           >
                         </div>
                       </v-card-text>
@@ -96,51 +97,43 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    step: 1,
+    user: {
+      name: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
   }),
   mounted() {},
   props: {
     source: String,
   },
   methods: {
-    preventDefault(e) {
-      e.preventDefault();
-    },
-    Signup() {
-      const user = {
-        name: "vue",
-        lastName: "user",
-        email: `vue${Date.now()}@mail.com`,
-        password: "vue",
-      };
+    submitForm(e) {
+      this.user.name = e.target.elements.name.value;
+      this.user.lastName = e.target.elements.lastName.value;
+      this.user.email = e.target.elements.email.value;
+      this.user.password = e.target.elements.password.value;
 
       const options = {
         method: "POST",
         url: "http://localhost:3000/user",
-        headers: { "content-type": "application/json" },
-        data: user,
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        data: this.user,
       };
 
       axios(options)
         .then((response) => {
-          console.log(response.data);
+          if (response.status === 201) {
+            this.$router.push(`home?userid=${response.data._id}`);
+          }
         })
         .catch((error) => console.log(error.response.data));
     },
-    // async IngresarGoogle() {
-    //   try {
-    //     const googleUser = await this.$gAuth.signIn();
 
-    //     if (!googleUser) {
-    //       return null;
-    //     }
-
-    //     this.user = googleUser.googleBasicProfile().getEmail();
-    //   } catch (error) {
-    //     console.log(error);
-    //     return;
-    //   }
-    // },
+    goToSignin() {
+      this.$router.push("login");
+    },
   },
 };
 </script>
