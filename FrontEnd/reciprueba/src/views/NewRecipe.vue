@@ -27,6 +27,27 @@
       required
     ></v-select>
 
+<v-text-field
+      v-model="descripcion"
+      :rules="DescripcionRules"
+      label="Descripción"
+      required
+    ></v-text-field>
+<v-text-field
+      v-model="addIngrediente"
+      @click:appends="addIngrediente"
+      @keyup.enter="addIngrediente"
+      label="Descripción"
+      required
+    ></v-text-field>
+<v-text-field
+      v-model="addMetodo"
+      @click:appends="addMetodo"
+      @keyup.enter="addIngrediente"
+      label="Descripción"
+      required
+    ></v-text-field>
+
     <v-btn
       :disabled="!valid"
       color="success"
