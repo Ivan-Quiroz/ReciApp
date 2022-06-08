@@ -16,45 +16,9 @@
 
     <v-main>
       <!--  -->
-<v-container class="my-3">
-      <v-card
-    :loading="loading"
-    class="mx-auto my-12"
-    max-width="374"
-  >
-    <v-card-title>ejemplo</v-card-title>
-    
-    <v-card-text>
-      <v-row
-        align="center"
-        class="mx-0"
-      >
-        <v-rating
-          :value="4.5"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        ></v-rating>
-      </v-row>
 
-      <div class="my-4 text-subtitle-1">
-      </div>
+      ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
 
-      <div>Small plates, salads and sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-        @click="reserve"
-      >
-       Ver
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-</v-container>
     </v-main>
 
     <v-bottom-navigation v-model="value">
