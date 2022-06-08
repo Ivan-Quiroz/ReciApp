@@ -27,16 +27,6 @@
       required
     ></v-select>
 
-    <v-text-field
-    class="pa-3"
-    outlined
-    label="ingresa un ingrediente"
-    append-icon="mdi-plus"
-    hide-details=""
-    @click:append="addIngrediente"
-    @keyup.enter="addIngrediente"
-    ><v-text-field>
-
     <v-btn
       :disabled="!valid"
       color="success"
@@ -74,7 +64,6 @@
       validate () {
         this.$refs.form.validate()
       },
-      
     },
   }
 </script>
