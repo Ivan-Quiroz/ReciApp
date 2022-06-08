@@ -91,6 +91,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data: () => ({
@@ -120,6 +121,13 @@ export default {
     },
 
     goToSignup() {
+      this.$swal({
+        title: "Login Terminado",
+        type: "success",
+        icon: "",
+        showCloseButton: true,
+      });
+
       this.$router.push("signup");
     },
   },
