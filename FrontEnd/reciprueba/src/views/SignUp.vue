@@ -94,7 +94,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-
+import Swal from 'sweetalert2';
 export default {
   data: () => ({
     user: {
@@ -125,6 +125,14 @@ export default {
       axios(options)
         .then((response) => {
           if (response.status === 201) {
+
+            this.$swal({
+              title:'registro Terminado',
+              type:'success',
+              icon:'',
+              showCloseButton:true
+            })
+
             this.$router.push(`home?userid=${response.data._id}`);
           }
         })

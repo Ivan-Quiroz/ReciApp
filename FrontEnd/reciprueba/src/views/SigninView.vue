@@ -94,7 +94,17 @@ export default {
     source: String,
   },
   methods: {
+
+    
     goToSignup() {
+
+      this.$swal({
+              title:'Login Terminado',
+              type:'success',
+              icon:'',
+              showCloseButton:true
+            })
+
       this.$router.push("signup");
     },
   },
