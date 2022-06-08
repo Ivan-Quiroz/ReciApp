@@ -45,6 +45,7 @@
                         </v-form>
                         <div class="text-center mt-3">
                         <v-btn rounded color="orange">SIGN IN</v-btn>
+                        <v-btn rounded color="orange">SIGN UP</v-btn>
                       </div>
                       </v-card-text>
                       
