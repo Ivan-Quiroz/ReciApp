@@ -1,4 +1,4 @@
-# reciapp-prueba
+# reciprueba
 
 ## Project setup
 ```
