@@ -4,15 +4,20 @@ const passport = require("passport");
 const initializePassport = require("../config/passport.config");
 initializePassport(passport, GetUserByEmail, GetUserById);
 
-async function CreateUser(name, lastName, email, password) {
+async function CreateUser(user) {
   try {
-    if (!name || !lastName || !email || !password)
+    if (!user.name || !user.lastName || !user.email || !user.password)
       return { message: "All fields are required." };
 
-    if (await GetUserByEmail(email))
+    if (await GetUserByEmail(user.email))
       return { message: "The email address is already in use." };
 
-    return await User.create({ name, lastName, email, password });
+    return await User.create({
+      name: user.name,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+    });
   } catch (error) {
     console.log(error.message);
   }

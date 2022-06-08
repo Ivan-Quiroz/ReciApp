@@ -9,12 +9,14 @@ router.post("/", UserServices.CheckNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const responseMongodb = await UserServices.CreateUser(
-      req.body.name,
-      req.body.lastName,
-      req.body.email,
-      hashedPassword
-    );
+    const user = {
+      name: req.body.name,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: hashedPassword,
+    };
+
+    const responseMongodb = await UserServices.CreateUser(user);
 
     if (responseMongodb === undefined) return res.status(400);
 
