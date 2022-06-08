@@ -26,7 +26,7 @@
                           </v-btn>
                         </div>
                         <h4 class="text-center mt-4">Ingrese correo y contraseña</h4>
-                        <v-form>
+                        <v-form method="post" action="http://localhost:3000/user" @submit.prevent="submitForm">
                           <v-text-field
                             label="Email"
                             name="Email"
@@ -44,7 +44,7 @@
                           />
                         </v-form>
                         <div class="text-center mt-3">
-                        <v-btn rounded color="orange">SIGN IN</v-btn>
+                        <v-btn rounded color="orange" type="submit" >SIGN IN</v-btn>
                         <v-btn rounded color="orange">SIGN UP</v-btn>
                       </div>
                       </v-card-text>
@@ -72,7 +72,7 @@
 
 <script>
 //import {inject} from 'vue';
-
+//const baseurl = "http://localhost:3000";
 
 export default {
   data: () => ({
@@ -82,6 +82,11 @@ export default {
     source: String
   },
     methods: {
+      submitForm(e){
+          this.user.email = e.target.elements.email.value;
+          this.use.password = e.target.elements.password.value;
+      },
+
     async IngresarGoogle(){
       try{
 
