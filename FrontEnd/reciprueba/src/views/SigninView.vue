@@ -90,7 +90,7 @@
 <script>
 // import { inject, toRefs } from "vue";
 import axios from "axios";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 export default {
   data: () => ({
@@ -124,29 +124,15 @@ export default {
               "accessToken",
               `Bearer ${response.data.token}`
             );
-            this.displaySuccess();
             this.$router.push(`/home?userid=${response.data._id}`);
             // mostrar mensaje de sweetalert
           }
         })
-        .catch((error) => this.displayError(error.response.data)); // mostrar mensaje sweetalert
+        .catch((error) => console.log(error)); // mostrar mensaje sweetalert
     },
-    displaySuccess(){
-      Swal.fire(
-        'Bien',
-        'ingresaste con exito.',
-        'success')
-    },
-    displayError(error){
-      Swal.fire(
-        'OH NO! HUBO UN ERROR',
-        error,
-        'error')
-    },
-    goToSignup() {
 
+    goToSignup() {
       this.$router.push("signup");
-      
     },
   },
 };
