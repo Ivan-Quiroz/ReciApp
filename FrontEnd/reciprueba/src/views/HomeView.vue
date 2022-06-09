@@ -67,11 +67,7 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn value="User">
-        <span>Usuario</span>
 
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
     </v-bottom-navigation>
   </v-app>
 </template>
