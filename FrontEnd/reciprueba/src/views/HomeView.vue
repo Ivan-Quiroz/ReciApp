@@ -19,7 +19,12 @@
       <v-container class="my-3">
         <v-row v-for="(recipes, index) in groupedRecipes" :key="index">
           <v-col v-for="recipe in recipes" :key="recipe._id">
-            <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <v-card
+              :loading="loading"
+              class="mx-auto my-12"
+              max-width="374"
+              :id="recipe._id"
+            >
               <v-card-title>{{ recipe.title }}</v-card-title>
               <v-card-text>
                 <v-row align="center" class="mx-0">
@@ -39,7 +44,9 @@
                 </div>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="orange" @click="viewRecipe" text> Ver </v-btn>
+                <v-btn color="orange" text @click="ViewRecipe(recipe._id)">
+                  See Recipe
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -47,9 +54,7 @@
       </v-container>
     </v-main>
 
-    <v-bottom-navigation fixed
-    horizontal
-     v-model="value">
+    <v-bottom-navigation fixed horizontal v-model="value">
       <v-btn @click="goToAbout" value="About">
         <span>Info</span>
 
@@ -102,24 +107,21 @@ export default {
         .then((response) => (this.recipes = response.data))
         .catch((error) => console.log(error));
     },
-    goToAbout(){
-      var userToken = this.$route.query.userid
-      this.$router.push(`/about?userid=${userToken}`);
+
+    ViewRecipe(recipeId) {
+      console.log(recipeId);
+      const options = {
+        method: "GET",
+        url: "http://localhost:3000/recipe",
+        headers: {
+          recipeid: recipeId,
+        },
+      };
+
+      axios(options)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
-    viewRecipe(){
-      //&recipeid=${recipe._id}
-      var userToken = this.$route.query.userid
-      //this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=${recipes.id}`);
-      //revisar como sacar el index
-      this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=1`);
-    },
-    goToNewRecipe(){
-            //&recipeid=${recipe._id}
-      var userToken = this.$route.query.userid
-      //this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=${recipes.id}`);
-      //revisar como sacar el index
-      this.$router.push(`/newRecipe?userid=${userToken}`);
-    }
   },
 
   computed: {

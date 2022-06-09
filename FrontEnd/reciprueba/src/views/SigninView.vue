@@ -13,15 +13,21 @@
                         <h1
                           class="text-center display-2 teal--text text--accent-3"
                         >
-                          Inicio de sesión
+                          Login
                         </h1>
                         <div class="text-center mt-4">
-                          <v-btn class="mx-2" fab color="white" outlined>
+                          <v-btn
+                            class="mx-2"
+                            fab
+                            color="white"
+                            outlined
+                            href="http://localhost:3000/user/auth/facebook"
+                          >
                             <v-icon>mdi-facebook</v-icon>
                           </v-btn>
 
                           <v-btn
-                            @click="IngresarGoogle"
+                            href="http://localhost:3000/user/auth/google"
                             class="mx-2"
                             fab
                             color="white"
@@ -29,12 +35,13 @@
                           >
                             <v-icon>mdi-google</v-icon>
                           </v-btn>
+
                           <v-btn class="mx-2" fab color="white" outlined>
-                            <v-icon>mdi-linkedin</v-icon>
+                            <v-icon>mdi-twitter</v-icon>
                           </v-btn>
                         </div>
                         <h4 class="text-center mt-4">
-                          Ingrese correo y contraseña
+                          Enter your email and password
                         </h4>
                         <v-form @submit.prevent="login">
                           <v-text-field
@@ -60,22 +67,14 @@
                           </div>
                         </v-form>
                         <div class="text-center mt-3">
+                          <v-text>
+                            <h4>Not registered yet?</h4>
+                          </v-text>
                           <v-btn rounded color="orange" @click="goToSignup"
                             >SIGN UP</v-btn
                           >
                         </div>
                       </v-card-text>
-                    </v-col>
-                  </v-row>
-                </v-window-item>
-                <v-window-item :value="2">
-                  <v-row class="fill-height">
-                    <v-col cols="12" md="4" class="teal accent-3">
-                      <div class="text-center">
-                        <v-btn rounded outlined dark @click="step--"
-                          >Ingresar</v-btn
-                        >
-                      </div>
                     </v-col>
                   </v-row>
                 </v-window-item>
@@ -89,7 +88,7 @@
 </template>
 
 <script>
-//import {inject} from 'vue';
+// import { inject, toRefs } from "vue";
 import axios from "axios";
 // import Swal from "sweetalert2";
 
@@ -100,9 +99,13 @@ export default {
       password: "",
     },
   }),
+
+  mounted() {},
+
   props: {
     source: String,
   },
+
   methods: {
     login(e) {
       this.user.email = e.target.elements.email.value;
@@ -129,13 +132,6 @@ export default {
     },
 
     goToSignup() {
-      // this.$swal({
-      //   title: "Login Terminado",
-      //   type: "success",
-      //   icon: "",
-      //   showCloseButton: true,
-      // });
-
       this.$router.push("signup");
     },
   },

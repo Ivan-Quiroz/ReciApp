@@ -87,7 +87,7 @@ router.delete("/", async (req, res) => {
   }
 });
 
-router.get("/home", UserServices.AuthenticateToken, async (req, res) => {
+router.get("/home", async (req, res) => {
   try {
     const recipes = await RecipeServices.GetByUserId(req.headers.userid);
 
