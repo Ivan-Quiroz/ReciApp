@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const RecipeServices = require("../services/Recipe.services");
-const UserServices = require("../services/User.services");
 
 // Response models
 
@@ -49,7 +48,7 @@ router.patch("/", async (req, res) => {
     const recipe = {
       title: req.body.title,
       description: req.body.description,
-      ingredients: JSON.parsereq.body.ingredients,
+      ingredients: req.body.ingredients,
       steps: req.body.steps,
       difficulty: req.body.difficulty,
       fromUser: req.body.fromUser,
@@ -60,7 +59,7 @@ router.patch("/", async (req, res) => {
       recipe
     );
 
-    return res.sendStatus(200).send(updatedRecipe).end();
+    return res.status(200).send(updatedRecipe).end();
   } catch (error) {
     return res
       .status(500)
