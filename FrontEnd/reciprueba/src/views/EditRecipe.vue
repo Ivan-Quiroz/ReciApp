@@ -2,7 +2,7 @@
   <v-form ref="form" v-model="valid" lazy- @submit.prevent="editRecipe">
     <v-title><h1>Edit Recipe</h1></v-title>
     <v-text-field
-      v-model="title"
+      v-model="this.recipe.title"
       :rules="nameRules"
       label="Title"
       required
@@ -10,7 +10,7 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="description"
+      v-model="this.recipe.description"
       :rules="DescripcionRules"
       label="Description"
       id="description"
@@ -18,7 +18,7 @@
     ></v-text-field>
 
     <v-select
-      v-model="select"
+      v-model="this.recipe.difficulty"
       :items="difficulty"
       :rules="[(v) => !!v || 'Inserte la dificultad.']"
       label="Dificultad"
@@ -108,9 +108,25 @@ export default {
       });
     },
 
+    addIngredienteLoad(text) {
+      this.ingredients.push({
+        value1: text,
+        label: "ingrediente",
+        id: "ingredient",
+      });
+    },
+
     addPaso() {
       this.steps.push({
         value2: "",
+        label: "Paso",
+        id: "step",
+      });
+    },
+
+    addPasoLoad(text) {
+      this.steps.push({
+        value2: text,
         label: "Paso",
         id: "step",
       });
@@ -129,6 +145,14 @@ export default {
         .then((response) => {
           this.recipe = response.data;
           this.editedRecipe = this.recipe;
+          for (let i = 0; i < this.recipe.ingredients.length; i++) {
+            console.log(this.recipe.ingredients[i]);
+            this.addIngredienteLoad(this.recipe.ingredients[i]);
+          }
+
+          for (let i = 0; i < this.recipe.steps.length; i++) {
+            this.addPasoLoad(this.recipe.steps[i]);
+          }
         })
         .catch((error) => console.log(error));
     },
@@ -139,15 +163,19 @@ export default {
       this.editedRecipe.difficulty = e.target.elements.difficulty.value;
       this.editedRecipe.fromUser = this.recipe.fromUser;
 
-      // const ingredients = document.querySelectorAll("#ingredient");
-      // for (var i = 0; i < ingredients.length; i++) {
-      //   this.recipe.ingredients.push(ingredients[i].value);
-      // }
+      const ingredients = document.querySelectorAll("#ingredient");
+      if (ingredients) {
+        for (var i = 0; i < ingredients.length; i++) {
+          this.editedRecipe.ingredients.push(ingredients[i].value);
+        }
+      }
 
-      // const steps = document.querySelectorAll("#step");
-      // for (var j = 0; j < steps.length; j++) {
-      //   this.recipe.steps.push(steps[j].value);
-      // }
+      const steps = document.querySelectorAll("#step");
+      if (steps) {
+        for (var j = 0; j < steps.length; j++) {
+          this.editedRecipe.steps.push(steps[j].value);
+        }
+      }
 
       const options = {
         method: "PATCH",

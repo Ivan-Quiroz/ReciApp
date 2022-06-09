@@ -29,10 +29,11 @@
               <v-card-text>
                 <v-row align="center" class="mx-0">
                   <v-rating
-                    :value="3"
-                    v-model="rating"
+                    :value="recipe.difficulty"
+                    v-model="recipe.difficulty"
                     color="amber"
                     hover
+                    readonly
                     size="18"
                   ></v-rating>
                 </v-row>
@@ -54,7 +55,7 @@
       </v-container>
     </v-main>
 
-    <v-bottom-navigation fixed horizontal v-model="value">
+    <v-bottom-navigation class="" horizontal v-model="value">
       <v-btn @click="goToAbout" value="About">
         <span>Info</span>
 
@@ -62,13 +63,13 @@
       </v-btn>
 
       <v-btn @click="goToNewRecipe" value="NewRecipe">
-        <span>Nueva Receta</span>
+        <span>New Recipe</span>
 
         <v-icon>mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn value="User">
-        <span>Usuario</span>
+      <v-btn value="User" @click="logOut">
+        <span>Logout</span>
 
         <v-icon>mdi-account</v-icon>
       </v-btn>
@@ -84,7 +85,6 @@ export default {
   data: () => ({
     userid: "",
     recipes: [],
-    // rating: 3,
   }),
 
   mounted() {
@@ -110,6 +110,18 @@ export default {
 
     ViewRecipe(recipeId) {
       this.$router.push(`/viewRecipe?recipeid=${recipeId}`);
+    },
+
+    goToAbout() {
+      this.$router.push("about");
+    },
+
+    goToNewRecipe() {
+      this.$router.push("newRecipe");
+    },
+
+    logout() {
+      this.$router.push("/login");
     },
   },
 
