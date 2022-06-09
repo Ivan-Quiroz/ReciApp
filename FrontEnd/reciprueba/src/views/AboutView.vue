@@ -18,11 +18,6 @@
 
     <v-main>
       <!--  -->
-<<<<<<< Updated upstream
-
-      ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
-
-=======
 <v-container class="my-3">
       <v-card
     :loading="loading"
@@ -42,7 +37,6 @@
   ></v-img>
   </v-card>
 </v-container>
->>>>>>> Stashed changes
     </v-main>
 
     <v-bottom-navigation v-model="value">

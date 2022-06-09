@@ -114,7 +114,7 @@ export default {
       const options = {
         method: "POST",
         url: "http://localhost:3000/user",
-        headers: { "content-type": "application/x-www-form-urlencoded" },
+        headers: { "content-type": "application/json" },
         data: this.user,
       };
 
