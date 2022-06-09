@@ -115,7 +115,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-// import Swal from 'sweetalert2';
+ import Swal from 'sweetalert2';
 export default {
   data: () => ({
     user: {
@@ -156,9 +156,20 @@ export default {
             this.$router.push(`login`);
           }
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => this.displayError(error.response.data));
     },
-
+      displaySuccess(){
+      Swal.fire(
+        'Bien',
+        'Registro con exito.',
+        'success')
+    },
+    displayError(error){
+      Swal.fire(
+        'OH NO! HUBO UN ERROR',
+        error,
+        'error')
+    },
     goToSignin() {
       this.$router.push("login");
     },

@@ -42,7 +42,7 @@
 
     <v-bottom-navigation v-model="value">
     <v-btn @click="goToAbout" value="About">
-      <span>Info</span>
+      <span>Home</span>
 
       <v-icon>mdi-information</v-icon>
     </v-btn>
@@ -53,15 +53,27 @@
       <v-icon>mdi-plus</v-icon>
     </v-btn>
 
-    <v-btn value="User">
-      <span>Usuario</span>
-
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
   </v-bottom-navigation>
   </v-app>
 </template>
 <script>
+export default{
+   data: () => ({
+    userid: "",
+  }),
+
+  mounted() {
+    this.userid = this.$route.query.userid;
+  },
+  methods:{
+    goToNewRecipe(){
+      this.$router.push(`/newRecipe?userid=${this.userid}`);
+    },
+    goToAbout(){
+      this.$router.push(`/home?userid=${this.userid}`);
+    },
+  }
+}
 //import { defineComponent } from '@vue/composition-api'
 
 // export default defineComponent({

@@ -71,8 +71,6 @@
       <v-btn value="User" @click="logOut">
         <span>Logout</span>
 
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
     </v-bottom-navigation>
   </v-app>
 </template>
@@ -107,7 +105,12 @@ export default {
         .then((response) => (this.recipes = response.data))
         .catch((error) => console.log(error));
     },
-
+    goToNewRecipe(){
+      this.$router.push(`/newRecipe?userid=${this.userid}`);
+    },
+    goToAbout(){
+      this.$router.push(`/about?userid=${this.userid}`);
+    },
     ViewRecipe(recipeId) {
       this.$router.push(`/viewRecipe?recipeid=${recipeId}`);
     },

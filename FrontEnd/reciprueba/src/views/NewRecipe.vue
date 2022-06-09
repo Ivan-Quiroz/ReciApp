@@ -79,7 +79,7 @@
 <script>
 
 import axios from "axios";
-
+import Swal from"sweetalert2";
   export default {
     data: () => ({
       ingredients: [],
@@ -129,6 +129,18 @@ import axios from "axios";
           id: "step"
         })
       },
+      displaySuccess(){
+      Swal.fire(
+        'Bien',
+        'Receta registrada con exito.',
+        'success')
+    },
+    displayError(error){
+      Swal.fire(
+        'OH NO! HUBO UN ERROR',
+        error,
+        'error')
+    },
         addRecipe(e){
             this.recipe.title = e.target.elements.title.value;
             this.recipe.description = e.target.elements.description.value;
@@ -156,9 +168,10 @@ import axios from "axios";
               if(response.status == 201){
                   //insertar sweetalert
                   console.log('chido');
+                  this.displaySuccess();
               }
             })
-            .catch((error) => console.log(error.response.data));
+            .catch((error) => this.displayError(error.response.data));
         },
         editRecipe(e){
             this.recipe.title = e.target.elements.title.value;
@@ -186,10 +199,11 @@ import axios from "axios";
             .then((response) => {
               if(response.status == 201){
                   //insertar sweetalert
+                  this.displaySuccess();
                   console.log('chido');
               }
             })
-            .catch((error) => console.log(error.response.data));
+            .catch((error) => this.displayError(error.response.data));
         },
     },
   }
