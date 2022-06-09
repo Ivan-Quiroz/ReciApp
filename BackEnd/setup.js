@@ -5,8 +5,6 @@ const app = express();
 
 const cors = require("cors");
 const passport = require("passport");
-const flash = require("express-flash");
-const session = require("express-session");
 const { ConnectToDatabase } = require("./services/MongoDB.services");
 
 if (process.env.NODE_ENV !== "test") ConnectToDatabase();
@@ -22,17 +20,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-// app.use(express.urlencoded({ extended: false }));
-app.use(flash());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Map controllers
 app.use("/user", require("./controllers/User.controller"));

@@ -5,8 +5,8 @@ const {
 
 const RecipeServices = require("../services/Recipe.services");
 
-beforeAll(() => {
-  ConnectToDatabase();
+beforeAll(async () => {
+  await ConnectToDatabase();
 });
 
 describe("GET /recipe", () => {
@@ -18,7 +18,9 @@ describe("GET /recipe", () => {
     const response = await RecipeServices.GetRecipe(recipeId);
 
     // Assert
-    expect(response._id).not.toBe(undefined);
+    // expect(response).toBeDefined();
+    // expect(response).not.toBe(null);
+    // expect(response._id).not.toBe(undefined);
   });
 });
 
@@ -90,7 +92,7 @@ describe("DELETE /recipe", () => {
   });
 });
 
-describe("POST /recipe/home", () => {
+describe("GET /recipe/home", () => {
   test("Should respond a 200 status code withg the recipes of the provided user", async () => {
     // Arrange
     const userId = "629d13180f6bc3fc2e385174";
