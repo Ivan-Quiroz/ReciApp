@@ -33,6 +33,24 @@
     <v-list-item v-for="(step,index) in ingredients" :key="'steps' + index"> 
         <v-list-item-title>{{recipe.steps}}</v-list-item-title>
     </v-list-item>
+
+    <v-btn
+      :disabled="!valid"
+      color="info"
+      class="mr-4"
+      @click="validate"
+    >
+      Editar
+    </v-btn>
+    <v-btn
+      :disabled="!valid"
+      color="warning"
+      class="mr-4"
+      @click="validate"
+    >
+      borrar receta
+    </v-btn>
+
 </v-card>
 </template>
 
