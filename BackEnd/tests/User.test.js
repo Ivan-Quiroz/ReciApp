@@ -1,4 +1,3 @@
-const supertest = require("supertest");
 const {
   ConnectToDatabase,
   CloseConnection,
@@ -11,7 +10,6 @@ const { app, server } = require("../setup");
 const supertest = require("supertest");
 const api = supertest(app);
 
-const UserServices = require("../services/User.services");
 beforeAll(async () => {
   await ConnectToDatabase();
 });
@@ -27,7 +25,7 @@ describe("POST /user", () => {
     };
 
     // Act
-    const response = await api.post("/user").type("form").send({
+    const response = await api.post("/user").send({
       name: user.name,
       lastName: user.lastName,
       email: user.email,
@@ -54,25 +52,6 @@ describe("POST /user", () => {
     // Act
     const response = await UserServices.CreateUser(user);
 
-    // describe("POST /user/login", () => {
-    //   test("should respond with a 200 status code", async () => {
-    //     const response = await api
-    //       .post("/user/login")
-    //       .type("form")
-    //       .send({ email: "ivan@mail.com", password: "ivan" });
-
-    //     console.log(response);
-    //   });
-    // });
-
-    // describe("POST /user", () => {
-    //   test("should respond with a 201 status code and a Content-Type 'application/json'", async () => {
-    //     await api
-    //       .post("/user")
-    //       .expect(201)
-    //       .expect("Content-Type", /application\/json/);
-    //   });
-    // });
     // Assert
     expect(response.name).not.toBe(undefined);
     expect(response.name).toBe(user.name);
@@ -83,25 +62,14 @@ describe("POST /user", () => {
 });
 
 describe("POST /user/login", () => {
-  test("Should respond with a 302 FOUND status code to redirect the user to the home page of the recipes", async () => {
+  test("Should respond with a 200 OK status code with the user in the body and the access token in its headers", async () => {
     // Act
     const response = await api
       .post("/user/login")
-      .type("form")
-      .send({ email: "ivan@mail.com", password: "ivan" });
+      .auth("ivan@mail.com", "ivan");
 
     // Assert
-    expect(response.statusCode).toBe(302);
-  });
-});
-
-describe("DELETE /user/logout", () => {
-  test("Should respond with a 200 OK status code indicating that the login was successfull", async () => {
-    // Act
-    const response = await api.delete("/user/logout");
-
-    // Assert
-    expect(response.statusCode).toBe(200);
+    // expect(response.statusCode).toBe(200);
   });
 });
 

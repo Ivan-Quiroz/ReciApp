@@ -7,13 +7,12 @@ const UserServices = require("../services/User.services");
 
 router.post("/", async (req, res) => {
   try {
-    const body = JSON.parse(Object.keys(req.body)[0]);
-    const hashedPassword = await bcrypt.hash(body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const user = {
-      name: body.name,
-      lastName: body.lastName,
-      email: body.email,
+      name: req.body.name,
+      lastName: req.body.lastName,
+      email: req.body.email,
       password: hashedPassword,
     };
 

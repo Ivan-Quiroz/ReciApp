@@ -16,12 +16,23 @@ const MongodbConnectionString =
     : MONGODB_PRODUCTION_CONNECTION_STRING;
 
 // Connect to database
-function ConnectToDatabase() {
-  mongoose.connect(
-    MongodbConnectionString,
-    () => console.log("connected"),
-    (e) => console.log(e)
-  );
+async function ConnectToDatabase() {
+  try {
+    await mongoose.connect(MongodbConnectionString);
+
+    console.log("Successfully connected to MongoDB");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-module.exports = { User, Recipe, ConnectToDatabase };
+function CloseConnection() {
+  try {
+    mongoose.connection.close();
+    mongoose.disconnect();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports = { User, Recipe, ConnectToDatabase, CloseConnection };
