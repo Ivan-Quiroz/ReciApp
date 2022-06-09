@@ -28,8 +28,8 @@
 
     <div v-for="(textField, i) in ingredients" :key="i" class="text-fields-row">
       <v-text-field
-        :v-model="textField.value1"
-        label="ingrediente"
+        v-model="textField.value1"
+        label="Ingredient"
         required
         id="ingredient"
       ></v-text-field>
@@ -38,7 +38,7 @@
     <div v-for="(textField2, j) in steps" :key="j" class="text-fields-row">
       <v-text-field
         v-model="textField2.value2"
-        label="Paso"
+        label="Step"
         id="step"
         required
       ></v-text-field>
@@ -103,7 +103,7 @@ export default {
     addIngrediente() {
       this.ingredients.push({
         value1: "",
-        label: "ingrediente",
+        label: "Ingredient",
         id: "ingredient",
       });
     },
@@ -111,7 +111,7 @@ export default {
     addIngredienteLoad(text) {
       this.ingredients.push({
         value1: text,
-        label: "ingrediente",
+        label: "Ingredient",
         id: "ingredient",
       });
     },
@@ -119,7 +119,7 @@ export default {
     addPaso() {
       this.steps.push({
         value2: "",
-        label: "Paso",
+        label: "Step",
         id: "step",
       });
     },
@@ -127,7 +127,7 @@ export default {
     addPasoLoad(text) {
       this.steps.push({
         value2: text,
-        label: "Paso",
+        label: "Step",
         id: "step",
       });
     },
@@ -165,16 +165,22 @@ export default {
 
       const ingredients = document.querySelectorAll("#ingredient");
       if (ingredients) {
+        const newingredients = [];
         for (var i = 0; i < ingredients.length; i++) {
-          this.editedRecipe.ingredients.push(ingredients[i].value);
+          newingredients.push(ingredients[i].value);
         }
+
+        this.editedRecipe.ingredients = newingredients;
       }
 
       const steps = document.querySelectorAll("#step");
       if (steps) {
+        const newSteps = [];
         for (var j = 0; j < steps.length; j++) {
-          this.editedRecipe.steps.push(steps[j].value);
+          newSteps.push(steps[j].value);
         }
+
+        this.editedRecipe.steps = newSteps;
       }
 
       const options = {

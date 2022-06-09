@@ -117,7 +117,7 @@ export default {
     },
 
     goToNewRecipe() {
-      this.$router.push("newRecipe");
+      this.$router.push(`/newRecipe?userid=${this.userid}`);
     },
 
     logout() {
