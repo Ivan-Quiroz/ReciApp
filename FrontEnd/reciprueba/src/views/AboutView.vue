@@ -1,6 +1,8 @@
+ 
 <template>
-  <HelloWorld />
-      <v-app-bar app color="orange">
+  <v-app id="reciapp">
+    
+    <v-app-bar app color="orange">
       <v-spacer/>
       <v-spacer/>
        <v-img
@@ -16,9 +18,31 @@
 
     <v-main>
       <!--  -->
+<<<<<<< Updated upstream
 
       ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
 
+=======
+<v-container class="my-3">
+      <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="374"
+  >
+    
+    <v-card-title>Reciapp</v-card-title>
+    ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
+    <v-card-text>
+      <v-img
+    class="mx-2"
+    src="../assets/logo-itl.png"
+    max-height="40"
+    max-width="40"
+    contain
+  ></v-img>
+  </v-card>
+</v-container>
+>>>>>>> Stashed changes
     </v-main>
 
     <v-bottom-navigation v-model="value">
@@ -40,29 +64,5 @@
       <v-icon>mdi-account</v-icon>
     </v-btn>
   </v-bottom-navigation>
+  </v-app>
 </template>
-
-<script>
-import { defineComponent } from 'vue';
-
-// Components
-
-
-export default defineComponent({
-  name: 'HomeView',
-
-  components: {
-    
-  },
-  data: () => ({
-      loading: false,
-      selection: 1,
-    }),
-    methods: {
-      reserve () {
-        this.loading = true
-        setTimeout(() => (this.loading = false), 2000)
-      },
-    },
-});
-</script>

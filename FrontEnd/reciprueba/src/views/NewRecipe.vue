@@ -56,6 +56,22 @@
     >
       Ingresar Receta
     </v-btn>
+    <v-btn
+      :disabled="!valid"
+      color="info"
+      class="mr-4"
+      @click="validate"
+    >
+      Editar
+    </v-btn>
+    <v-btn
+      :disabled="!valid"
+      color="warning"
+      class="mr-4"
+      @click="validate"
+    >
+      borrar receta
+    </v-btn>
   </v-form>
 </template>
 
