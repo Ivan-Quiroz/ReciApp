@@ -31,6 +31,15 @@ async function GetUserByEmail(email) {
   }
 }
 
+async function GetUserByFacebookId(facebookId) {
+  try {
+    return await User.findOne({ facebookId }).exec();
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+}
+
 async function GetUserById(id) {
   try {
     return await User.findById(id).exec();
@@ -69,9 +78,52 @@ function AuthenticateToken(req, res, next) {
   });
 }
 
+async function FacebookLogin(accessToken, refreshToken, profile, callback) {
+  try {
+    const facebookUser = await GetUserByFacebookId(profile.id);
+    if (facebookUser) {
+      return callback(null, facebookUser);
+    }
+
+    User.create(
+      {
+        name: profile.displayName.split(" ")[0],
+        lastName: profile.displayName.split(" ")[1],
+        email: profile.provider,
+        password: await bcrypt.hash(profile.id, 10),
+        facebookId: profile.id,
+      },
+      function (err, user) {
+        return callback(err, user);
+      }
+    );
+  } catch (error) {
+    return callback(null, false);
+  }
+}
+
+async function GoogleLogin(accessToken, refreshToken, profile, callback) {
+  try {
+    console.log(profile);
+    return callback(null, false);
+  } catch (error) {
+    return callback(null, false);
+  }
+}
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
 module.exports = {
   VerifyUserCredentials,
   AuthenticateToken,
   CreateUser,
   GetUserByEmail,
+  FacebookLogin,
+  GoogleLogin,
 };
