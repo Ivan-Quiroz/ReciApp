@@ -91,7 +91,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 export default {
   data: () => ({
@@ -111,22 +111,30 @@ export default {
       const options = {
         method: "POST",
         url: "http://localhost:3000/user/login",
-        headers: { "content-type": "application/x-www-form-urlencoded" },
-        data: this.user,
+        auth: { username: this.user.email, password: this.user.password },
       };
 
       axios(options)
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+        .then((response) => {
+          if (response.status === 200) {
+            localStorage.setItem(
+              "accessToken",
+              `Bearer ${response.data.token}`
+            );
+            this.$router.push(`/home?userid=${response.data._id}`);
+            // mostrar mensaje de sweetalert
+          }
+        })
+        .catch((error) => console.log(error)); // mostrar mensaje sweetalert
     },
 
     goToSignup() {
-      this.$swal({
-        title: "Login Terminado",
-        type: "success",
-        icon: "",
-        showCloseButton: true,
-      });
+      // this.$swal({
+      //   title: "Login Terminado",
+      //   type: "success",
+      //   icon: "",
+      //   showCloseButton: true,
+      // });
 
       this.$router.push("signup");
     },

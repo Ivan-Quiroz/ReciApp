@@ -13,7 +13,7 @@
                         <h1
                           class="text-center display-2 teal--text text--accent-3"
                         >
-                          Registro
+                          Register
                         </h1>
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
@@ -90,7 +90,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 export default {
   data: () => ({
     user: {
@@ -121,15 +121,14 @@ export default {
       axios(options)
         .then((response) => {
           if (response.status === 201) {
+            // this.$swal({
+            //   title: "registro Terminado",
+            //   type: "success",
+            //   icon: "",
+            //   showCloseButton: true,
+            // });
 
-            this.$swal({
-              title:'registro Terminado',
-              type:'success',
-              icon:'',
-              showCloseButton:true
-            })
-
-            this.$router.push(`home?userid=${response.data._id}`);
+            this.$router.push(`login`);
           }
         })
         .catch((error) => console.log(error.response.data));
