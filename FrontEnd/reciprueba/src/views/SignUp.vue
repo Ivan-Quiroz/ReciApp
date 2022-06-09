@@ -115,7 +115,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 export default {
   data: () => ({
     user: {
@@ -130,6 +130,18 @@ export default {
     source: String,
   },
   methods: {
+    displaySuccess(){
+      Swal.fire(
+        'Bien',
+        'Registro con exito.',
+        'success')
+    },
+    displayError(error){
+      Swal.fire(
+        'OH NO! HUBO UN ERROR',
+        error,
+        'error')
+    },
     submitForm(e) {
       this.user.name = e.target.elements.name.value;
       this.user.lastName = e.target.elements.lastName.value;
@@ -152,11 +164,11 @@ export default {
             //   icon: "",
             //   showCloseButton: true,
             // });
-
+            this.displaySuccess();
             this.$router.push(`login`);
           }
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => this.displayError(error.response.data));
     },
 
     goToSignin() {
