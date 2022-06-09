@@ -1,8 +1,7 @@
 const User = require("../models/User.model");
 const passport = require("passport");
-
-const initializePassport = require("../config/passport.config");
-initializePassport(passport, GetUserByEmail, GetUserById);
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 async function CreateUser(user) {
   try {
@@ -41,25 +40,38 @@ async function GetUserById(id) {
   }
 }
 
-function CheckAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+async function VerifyUserCredentials(email, password) {
+  try {
+    const user = await User.findOne({ email }).exec();
 
-  res.sendStatus(401).end();
+    if (!user || user.length === 0) return [];
+    if (await bcrypt.compare(password, user.password)) {
+      return user;
+    }
+
+    return [];
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
 
-function CheckNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/recipe/home");
-  }
+function AuthenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-  next();
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
 }
 
 module.exports = {
-  CheckAuthenticated,
-  CheckNotAuthenticated,
+  VerifyUserCredentials,
+  AuthenticateToken,
   CreateUser,
   GetUserByEmail,
 };

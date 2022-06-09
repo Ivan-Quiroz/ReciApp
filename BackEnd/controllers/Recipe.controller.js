@@ -6,7 +6,7 @@ const UserServices = require("../services/User.services");
 
 // Response models
 
-router.get("/", UserServices.CheckAuthenticated, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const recipe = await RecipeServices.GetRecipe(req.headers.recipeid);
 
@@ -22,7 +22,7 @@ router.get("/", UserServices.CheckAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/", UserServices.CheckAuthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const recipe = {
       title: req.body.title,
@@ -44,7 +44,7 @@ router.post("/", UserServices.CheckAuthenticated, async (req, res) => {
   }
 });
 
-router.patch("/", UserServices.CheckAuthenticated, async (req, res) => {
+router.patch("/", async (req, res) => {
   try {
     const recipe = {
       title: req.body.title,
@@ -69,7 +69,7 @@ router.patch("/", UserServices.CheckAuthenticated, async (req, res) => {
   }
 });
 
-router.delete("/", UserServices.CheckAuthenticated, async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
     const responseDelete = await RecipeServices.DeleteRecipe(
       req.headers.recipeid
@@ -87,7 +87,7 @@ router.delete("/", UserServices.CheckAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/home", UserServices.CheckAuthenticated, async (req, res) => {
+router.post("/home", UserServices.AuthenticateToken, async (req, res) => {
   try {
     const recipes = await RecipeServices.GetByUserId(req.headers.userid);
 
