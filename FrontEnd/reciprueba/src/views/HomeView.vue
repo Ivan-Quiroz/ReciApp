@@ -1,6 +1,6 @@
 <template>
   <v-app id="reciapp">
-    <v-app-bar app color="orange">
+    <v-app-bar fixed app color="orange">
       <v-spacer />
       <v-spacer />
       <v-img
@@ -21,7 +21,6 @@
           <v-col v-for="recipe in recipes" :key="recipe._id">
             <v-card :loading="loading" class="mx-auto my-12" max-width="374">
               <v-card-title>{{ recipe.title }}</v-card-title>
-
               <v-card-text>
                 <v-row align="center" class="mx-0">
                   <v-rating
@@ -40,7 +39,7 @@
                 </div>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="orange" text> Ver </v-btn>
+                <v-btn color="orange" @click="viewRecipe" text> Ver </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -48,14 +47,16 @@
       </v-container>
     </v-main>
 
-    <v-bottom-navigation v-model="value">
-      <v-btn value="About">
+    <v-bottom-navigation fixed
+    horizontal
+     v-model="value">
+      <v-btn @click="goToAbout" value="About">
         <span>Info</span>
 
         <v-icon>mdi-information</v-icon>
       </v-btn>
 
-      <v-btn value="NewRecipe">
+      <v-btn @click="goToNewRecipe" value="NewRecipe">
         <span>Nueva Receta</span>
 
         <v-icon>mdi-plus</v-icon>
@@ -101,6 +102,17 @@ export default {
         .then((response) => (this.recipes = response.data))
         .catch((error) => console.log(error));
     },
+    goToAbout(){
+      var userToken = this.$route.query.userid
+      this.$router.push(`/about?userid=${userToken}`);
+    },
+    viewRecipe(){
+      //&recipeid=${recipe._id}
+      var userToken = this.$route.query.userid
+      //this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=${recipes.id}`);
+      //revisar como sacar el index
+      this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=1`);
+    }
   },
 
   computed: {

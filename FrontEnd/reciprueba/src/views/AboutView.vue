@@ -26,8 +26,9 @@
   >
     
     <v-card-title>Reciapp</v-card-title>
-    ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
     <v-card-text>
+    ReciApp, creada por Iván Alejandro Rodríguez Quiroz y Roberto de Santiago Nájera como proyecto final para el curso de "Desarrollo Web Pila Completa 1" impartida por el docente Juan Carlos Rodríguez Ulloa en el Instituto Tecnológico de la Laguna, Torreón, Coahuila a 07 de junio de 2022.
+      </v-card-text>
       <v-img
     class="mx-2"
     src="../assets/logo-itl.png"
@@ -40,7 +41,7 @@
     </v-main>
 
     <v-bottom-navigation v-model="value">
-    <v-btn value="About">
+    <v-btn @click="goToAbout" value="About">
       <span>Info</span>
 
       <v-icon>mdi-information</v-icon>
@@ -60,3 +61,12 @@
   </v-bottom-navigation>
   </v-app>
 </template>
+<script>
+//import { defineComponent } from '@vue/composition-api'
+
+// export default defineComponent({
+//   setup() {
+    
+//   },
+// })
+</script>
