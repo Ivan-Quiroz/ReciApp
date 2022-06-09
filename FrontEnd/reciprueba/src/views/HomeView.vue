@@ -89,7 +89,7 @@ export default {
   methods: {
     getRecipes() {
       const options = {
-        method: "POST",
+        method: "GET",
         url: "http://localhost:3000/recipe/home",
         headers: {
           userid: this.userid,
