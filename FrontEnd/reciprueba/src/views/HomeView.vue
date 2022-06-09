@@ -112,6 +112,13 @@ export default {
       //this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=${recipes.id}`);
       //revisar como sacar el index
       this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=1`);
+    },
+    goToNewRecipe(){
+            //&recipeid=${recipe._id}
+      var userToken = this.$route.query.userid
+      //this.$router.push(`/ViewRecipe?userid=${userToken}&recipeid=${recipes.id}`);
+      //revisar como sacar el index
+      this.$router.push(`/newRecipe?userid=${userToken}`);
     }
   },
 

@@ -27,7 +27,7 @@
       v-model="select"
       :items="difficulty"
       :rules="[v => !!v || 'Inserte la dificultad.']"
-      label="Item"
+      label="Dificultad"
       required
     ></v-select>
 
@@ -65,7 +65,6 @@
       color="success"
       class="mr-4"
       type="submit"
-      @click="validate"
     >
       Ingresar Receta
     </v-btn>
@@ -94,43 +93,42 @@ import axios from "axios";
 
   export default {
     data: () => ({
-      recipe:{
       ingredients: [],
-      steps:[],
-      valid: true,
-      title: '',
-      nameRules: [
-        v => !!v || 'Se el nombre de la receta.',
-      ],
-      description: '',
-      DescripcionRules: [
-        v => !!v || 'Se necesita una descripcion',
-      ],
-      select: null,
-      Difficulty: [
+      steps: [],
+       difficulty: [
         '1',
         '2',
         '3',
         '4',
         '5',
       ],
+      recipe:{
+      valid: true,
+      title: '',
+      nameRules: [
+        v => !!v || 'Se necesita el nombre de la receta.',
+      ],
+      description: '',
+      DescripcionRules: [
+        v => !!v || 'Se necesita una descripcion',
+      ],
+      select: null,
+
       },
       checkbox: false,
-      
-
-    }),
+          }),
     methods: {
       validate () {
         this.$refs.form.validate()
       },
       addIngrediente(){
-        this.textFields.push({
+        this.ingredients.push({
           value1:"",
           label:"ingrediente"
         })
       },
       addPaso(){
-        this.textFields2.push({
+        this.steps.push({
           value2:"",
           label:"Paso"
         })
