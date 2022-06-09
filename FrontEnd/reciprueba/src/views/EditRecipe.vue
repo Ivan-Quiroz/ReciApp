@@ -4,10 +4,10 @@
     ref="form"
     v-model="valid"
     lazy-
-    @submit.prevent="addRecipe"
+    @submit.prevent="editRecipe"
   >
   
-    <v-title><h1>Añadir receta.</h1></v-title>
+    <v-title><h1>editar receta.</h1></v-title>
     <v-text-field
       v-model="title"
       :counter="10"
@@ -64,14 +64,13 @@
       <v-btn
       @click="addPaso"
     >Añadir paso</v-btn>
-
     <v-btn
       :disabled="!valid"
-      color="success"
+      color="info"
       class="mr-4"
-      type="submit"
+      @click="validate"
     >
-      Ingresar Receta
+      Editar
     </v-btn>
   </v-form>
 </template>
@@ -129,37 +128,6 @@ import axios from "axios";
           id: "step"
         })
       },
-        addRecipe(e){
-            this.recipe.title = e.target.elements.title.value;
-            this.recipe.description = e.target.elements.description.value;
-            this.recipe.difficulty = e.target.elements.difficulty.value
-            this.recipe.fromUser = this.$route.query.userid;
-            
-            const ingredients = document.querySelectorAll("#ingredient")
-            for (var i = 0; i < ingredients.length; i++ ) {
-              this.recipe.ingredients.push(ingredients[i].value)
-            }
-
-            const steps = document.querySelectorAll("#step")            
-            for (var j = 0; j < steps.length; j++ ) {
-              this.recipe.steps.push(steps[j].value)
-            }
-
-            const options = {
-              method:"POST",
-              url: "http://localhost:3000/recipe",
-              headers:{"content-type":"application/json"},
-              data: this.recipe,
-            };
-            axios(options)
-            .then((response) => {
-              if(response.status == 201){
-                  //insertar sweetalert
-                  console.log('chido');
-              }
-            })
-            .catch((error) => console.log(error.response.data));
-        },
         editRecipe(e){
             this.recipe.title = e.target.elements.title.value;
             this.recipe.description = e.target.elements.description.value;
