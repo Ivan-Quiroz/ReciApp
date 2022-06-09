@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SinginView from "../views/SigninView.vue";
+import SigninView from "../views/SigninView.vue";
 const routes = [
   {
     path: "/login",
     name: "login",
-    component: SinginView,
+    component: SigninView,
   },
   {
     path: "/signup",

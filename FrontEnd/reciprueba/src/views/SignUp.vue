@@ -15,6 +15,31 @@
                         >
                           Register
                         </h1>
+                        <div class="text-center mt-4">
+                          <v-btn
+                            class="mx-2"
+                            fab
+                            color="white"
+                            outlined
+                            href="http://localhost:3000/user/auth/facebook"
+                          >
+                            <v-icon>mdi-facebook</v-icon>
+                          </v-btn>
+
+                          <v-btn
+                            href="http://localhost:3000/user/auth/google"
+                            class="mx-2"
+                            fab
+                            color="white"
+                            outlined
+                          >
+                            <v-icon>mdi-google</v-icon>
+                          </v-btn>
+
+                          <v-btn class="mx-2" fab color="white" outlined>
+                            <v-icon>mdi-twitter</v-icon>
+                          </v-btn>
+                        </div>
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
                         </h4>

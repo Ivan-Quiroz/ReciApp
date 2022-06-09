@@ -19,7 +19,12 @@
       <v-container class="my-3">
         <v-row v-for="(recipes, index) in groupedRecipes" :key="index">
           <v-col v-for="recipe in recipes" :key="recipe._id">
-            <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+            <v-card
+              :loading="loading"
+              class="mx-auto my-12"
+              max-width="374"
+              :id="recipe._id"
+            >
               <v-card-title>{{ recipe.title }}</v-card-title>
 
               <v-card-text>
@@ -40,7 +45,9 @@
                 </div>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="orange" text> Ver </v-btn>
+                <v-btn color="orange" text @click="ViewRecipe(recipe._id)">
+                  See Recipe
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -99,6 +106,21 @@ export default {
 
       axios(options)
         .then((response) => (this.recipes = response.data))
+        .catch((error) => console.log(error));
+    },
+
+    ViewRecipe(recipeId) {
+      console.log(recipeId);
+      const options = {
+        method: "GET",
+        url: "http://localhost:3000/recipe",
+        headers: {
+          recipeid: recipeId,
+        },
+      };
+
+      axios(options)
+        .then((response) => console.log(response))
         .catch((error) => console.log(error));
     },
   },
