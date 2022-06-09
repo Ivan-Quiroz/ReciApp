@@ -199,10 +199,11 @@ import Swal from"sweetalert2";
             .then((response) => {
               if(response.status == 201){
                   //insertar sweetalert
+                  this.displaySuccess();
                   console.log('chido');
               }
             })
-            .catch((error) => console.log(error.response.data));
+            .catch((error) => this.displayError(error.response.data));
         },
     },
   }

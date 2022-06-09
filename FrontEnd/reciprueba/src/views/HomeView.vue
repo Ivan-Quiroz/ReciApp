@@ -103,7 +103,12 @@ export default {
         .then((response) => (this.recipes = response.data))
         .catch((error) => console.log(error));
     },
-
+    goToNewRecipe(){
+      this.$router.push(`/newRecipe?userid=${this.userid}`);
+    },
+    goToAbout(){
+      this.$router.push(`/about?userid=${this.userid}`);
+    },
     ViewRecipe(recipeId) {
       console.log(recipeId);
       const options = {
