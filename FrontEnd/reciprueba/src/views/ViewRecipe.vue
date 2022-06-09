@@ -56,8 +56,8 @@
 
 <script>
 //import { defineComponent } from '@vue/composition-api'
-import axios from "axios";
-const _=require("loadsh");
+//import axios from "axios";
+//const _=require("loadsh");
 
 
 export default{
@@ -70,23 +70,23 @@ export default{
     mouthed(){
         this.userid = this.$route.query.userid;
         this.recipeid = this.$route.query.recipeid;
-        getRecipe();
+        //getRecipe();
     },
     methods:{
-        getRecipe(){
-            const options ={
-                method: "GET",
-                url: "http://localhost:3000/recipe/"+this.userid+"/"+this.recipeid,
-                headers:{
-                    userid: this.userid,
-                    Authorization: localStorage.getItem("accessToken"),
-                }
-            };
+        // getRecipe(){
+        //     const options ={
+        //         method: "GET",
+        //         url: "http://localhost:3000/recipe/"+this.userid+"/"+this.recipeid,
+        //         headers:{
+        //             userid: this.userid,
+        //             Authorization: localStorage.getItem("accessToken"),
+        //         }
+        //     };
 
-            axios(options)
-            .then((response) => (this.recipes = response.data))
-            .catch((error) => console.log(error));
-        }
+        //     axios(options)
+        //     .then((response) => (this.recipes = response.data))
+        //     .catch((error) => console.log(error));
+        // }
     }
 };
 </script>

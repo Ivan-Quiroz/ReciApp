@@ -27,8 +27,8 @@ router.post("/", async (req, res) => {
     const recipe = {
       title: req.body.title,
       description: req.body.description,
-      ingredients: JSON.parse(req.body.ingredients),
-      steps: JSON.parse(req.body.steps),
+      ingredients: req.body.ingredients,
+      steps: req.body.steps,
       difficulty: req.body.difficulty,
       fromUser: req.body.fromUser,
     };
@@ -49,8 +49,8 @@ router.patch("/", async (req, res) => {
     const recipe = {
       title: req.body.title,
       description: req.body.description,
-      ingredients: JSON.parse(req.body.ingredients),
-      steps: JSON.parse(req.body.steps),
+      ingredients: JSON.parsereq.body.ingredients,
+      steps: req.body.steps,
       difficulty: req.body.difficulty,
       fromUser: req.body.fromUser,
     };

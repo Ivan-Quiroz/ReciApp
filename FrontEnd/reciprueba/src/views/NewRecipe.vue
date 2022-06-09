@@ -2,6 +2,7 @@
 
   <v-form
     ref="form"
+    @show="validateForm"
     v-model="valid"
     lazy-
     @submit.prevent="addRecipe"
@@ -14,12 +15,14 @@
       :rules="nameRules"
       label="Nombre"
       required
+      id="title"
     ></v-text-field>
 
     <v-text-field
       v-model="description"
       :rules="DescripcionRules"
       label="Descripción"
+      id="description"
       required
     ></v-text-field>
 
@@ -28,6 +31,7 @@
       :items="difficulty"
       :rules="[v => !!v || 'Inserte la dificultad.']"
       label="Dificultad"
+      id="difficulty"
       required
     ></v-select>
 
@@ -40,6 +44,7 @@
       :v-model="textField.value1"
       label="ingrediente"
       required
+      id="ingredient"
     ></v-text-field>
     </div>
     <v-btn
@@ -53,6 +58,7 @@
 <v-text-field
       v-model="textField2.value2"
       label="Paso"
+      id="step"
       required
     ></v-text-field>
 </div>
@@ -73,6 +79,7 @@
       color="info"
       class="mr-4"
       @click="validate"
+      
     >
       Editar
     </v-btn>
@@ -81,6 +88,7 @@
       color="warning"
       class="mr-4"
       @click="validate"
+      type="submit"
     >
       borrar receta
     </v-btn>
@@ -103,7 +111,15 @@ import axios from "axios";
         '5',
       ],
       recipe:{
+        title: '',
+        description: '',
+        ingredients: [],
+        steps: [],
+        difficulty: 0,
+        fromUser: '',
+      },
       valid: true,
+      isForm:true,
       title: '',
       nameRules: [
         v => !!v || 'Se necesita el nombre de la receta.',
@@ -113,36 +129,49 @@ import axios from "axios";
         v => !!v || 'Se necesita una descripcion',
       ],
       select: null,
-
-      },
       checkbox: false,
           }),
     methods: {
       validate () {
         this.$refs.form.validate()
       },
+      validateForm(){
+        this.$refs.form.validateForm()
+      },
       addIngrediente(){
         this.ingredients.push({
           value1:"",
-          label:"ingrediente"
+          label:"ingrediente",
+          id: "ingredient"
         })
       },
       addPaso(){
         this.steps.push({
           value2:"",
-          label:"Paso"
+          label:"Paso",
+          id: "step"
         })
       },
         addRecipe(e){
             this.recipe.title = e.target.elements.title.value;
-            this.recipe.description = e.target.elements.description;
-            this.recipe.ingredients = e.target.elements.ingredients;
-            this.recipe.steps = e.target.elements.steps;
+            this.recipe.description = e.target.elements.description.value;
+            this.recipe.difficulty = e.target.elements.difficulty.value
+            this.recipe.fromUser = this.$route.query.userid;
+            
+            const ingredients = document.querySelectorAll("#ingredient")
+            for (var i = 0; i < ingredients.length; i++ ) {
+              this.recipe.ingredients.push(ingredients[i].value)
+            }
+
+            const steps = document.querySelectorAll("#step")            
+            for (var j = 0; j < steps.length; j++ ) {
+              this.recipe.steps.push(steps[j].value)
+            }
 
             const options = {
               method:"POST",
-              url: "http://localhost:3000/user/CreateRecipe",
-              headers:{"content-type":"aplication/json"},
+              url: "http://localhost:3000/recipe",
+              headers:{"content-type":"application/json"},
               data: this.recipe,
             };
             axios(options)
@@ -153,7 +182,38 @@ import axios from "axios";
               }
             })
             .catch((error) => console.log(error.response.data));
-        }
+        },
+        editRecipe(e){
+            this.recipe.title = e.target.elements.title.value;
+            this.recipe.description = e.target.elements.description.value;
+            this.recipe.difficulty = e.target.elements.difficulty.value
+            this.recipe.fromUser = this.$route.query.userid;
+            
+            const ingredients = document.querySelectorAll("#ingredient")
+            for (var i = 0; i < ingredients.length; i++ ) {
+              this.recipe.ingredients.push(ingredients[i].value)
+            }
+
+            const steps = document.querySelectorAll("#step")            
+            for (var j = 0; j < steps.length; j++ ) {
+              this.recipe.steps.push(steps[j].value)
+            }
+
+            const options = {
+              method:"PATCH",
+              url: "http://localhost:3000/recipe",
+              headers:{"content-type":"application/json"},
+              data: this.recipe,
+            };
+            axios(options)
+            .then((response) => {
+              if(response.status == 201){
+                  //insertar sweetalert
+                  console.log('chido');
+              }
+            })
+            .catch((error) => console.log(error.response.data));
+        },
     },
   }
 </script>
