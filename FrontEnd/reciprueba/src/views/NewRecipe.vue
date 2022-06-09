@@ -27,6 +27,27 @@
       required
     ></v-select>
 
+<v-text-field
+      v-model="descripcion"
+      :rules="DescripcionRules"
+      label="Descripción"
+      required
+    ></v-text-field>
+<v-text-field
+      v-model="addIngrediente"
+      @click:appends="addIngrediente"
+      @keyup.enter="addIngrediente"
+      label="Descripción"
+      required
+    ></v-text-field>
+<v-text-field
+      v-model="addMetodo"
+      @click:appends="addMetodo"
+      @keyup.enter="addIngrediente"
+      label="Descripción"
+      required
+    ></v-text-field>
+
     <v-btn
       :disabled="!valid"
       color="success"
@@ -34,6 +55,22 @@
       @click="validate"
     >
       Ingresar Receta
+    </v-btn>
+    <v-btn
+      :disabled="!valid"
+      color="info"
+      class="mr-4"
+      @click="validate"
+    >
+      Editar
+    </v-btn>
+    <v-btn
+      :disabled="!valid"
+      color="warning"
+      class="mr-4"
+      @click="validate"
+    >
+      borrar receta
     </v-btn>
   </v-form>
 </template>
