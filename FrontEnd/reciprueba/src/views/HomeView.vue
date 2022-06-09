@@ -109,18 +109,7 @@ export default {
     },
 
     ViewRecipe(recipeId) {
-      console.log(recipeId);
-      const options = {
-        method: "GET",
-        url: "http://localhost:3000/recipe",
-        headers: {
-          recipeid: recipeId,
-        },
-      };
-
-      axios(options)
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+      this.$router.push(`/viewRecipe?recipeid=${recipeId}`);
     },
   },
 
