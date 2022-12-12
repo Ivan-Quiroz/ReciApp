@@ -25,20 +25,6 @@
                           >
                             <v-icon>mdi-facebook</v-icon>
                           </v-btn>
-
-                          <v-btn
-                            href="http://localhost:3000/user/auth/google"
-                            class="mx-2"
-                            fab
-                            color="white"
-                            outlined
-                          >
-                            <v-icon>mdi-google</v-icon>
-                          </v-btn>
-
-                          <v-btn class="mx-2" fab color="white" outlined>
-                            <v-icon>mdi-twitter</v-icon>
-                          </v-btn>
                         </div>
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
@@ -115,7 +101,7 @@
 <script>
 //import {inject} from 'vue';
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 export default {
   data: () => ({
     user: {
@@ -130,19 +116,23 @@ export default {
     source: String,
   },
   methods: {
-    displaySuccess(){
-      Swal.fire(
-        'Bien',
-        'Registro con exito.',
-        'success')
+    displaySuccess() {
+      Swal.fire("", "User registered successfully", "success");
     },
-    displayError(error){
-      Swal.fire(
-        'OH NO! HUBO UN ERROR',
-        error,
-        'error')
+    displayError(error) {
+      Swal.fire("", error, error, "error");
     },
     submitForm(e) {
+      if (
+        !e.target.elements.name.value ||
+        !e.target.elements.lastName.value ||
+        !e.target.elements.email.value ||
+        !e.target.elements.password.value
+      ) {
+        this.displayError("All fields are required");
+        return;
+      }
+
       this.user.name = e.target.elements.name.value;
       this.user.lastName = e.target.elements.lastName.value;
       this.user.email = e.target.elements.email.value;
@@ -158,12 +148,6 @@ export default {
       axios(options)
         .then((response) => {
           if (response.status === 201) {
-            // this.$swal({
-            //   title: "registro Terminado",
-            //   type: "success",
-            //   icon: "",
-            //   showCloseButton: true,
-            // });
             this.displaySuccess();
             this.$router.push(`login`);
           }

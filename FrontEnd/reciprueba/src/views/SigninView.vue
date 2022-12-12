@@ -25,20 +25,6 @@
                           >
                             <v-icon>mdi-facebook</v-icon>
                           </v-btn>
-
-                          <v-btn
-                            href="http://localhost:3000/user/auth/google"
-                            class="mx-2"
-                            fab
-                            color="white"
-                            outlined
-                          >
-                            <v-icon>mdi-google</v-icon>
-                          </v-btn>
-
-                          <v-btn class="mx-2" fab color="white" outlined>
-                            <v-icon>mdi-twitter</v-icon>
-                          </v-btn>
                         </div>
                         <h4 class="text-center mt-4">
                           Enter your email and password
@@ -90,7 +76,7 @@
 <script>
 // import { inject, toRefs } from "vue";
 import axios from "axios";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 export default {
   data: () => ({
@@ -107,7 +93,20 @@ export default {
   },
 
   methods: {
+    displaySuccess() {
+      Swal.fire("", "Welcome", "success");
+    },
+    displayError(error) {
+      Swal.fire("", error, "error");
+    },
+
     login(e) {
+      console.log(e.target.elements.email);
+      if (!e.target.elements.email.value || !e.target.elements.password.value) {
+        this.displayError("All fields are required");
+        return;
+      }
+
       this.user.email = e.target.elements.email.value;
       this.user.password = e.target.elements.password.value;
 
@@ -124,11 +123,14 @@ export default {
               "accessToken",
               `Bearer ${response.data.token}`
             );
+            this.displaySuccess();
             this.$router.push(`/home?userid=${response.data._id}`);
-            // mostrar mensaje de sweetalert
           }
         })
-        .catch((error) => console.log(error)); // mostrar mensaje sweetalert
+        .catch((error) => {
+          console.log(error);
+          this.displayError("Incorrect username and/or password.");
+        });
     },
 
     goToSignup() {

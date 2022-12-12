@@ -54,6 +54,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data: () => ({
@@ -78,6 +79,13 @@ export default {
   }),
 
   methods: {
+    displaySuccess() {
+      Swal.fire("", "Recipe created successfully", "success");
+    },
+    displayError(error) {
+      Swal.fire("", error, "error");
+    },
+
     validate() {
       this.$refs.form.validate();
     },
@@ -123,11 +131,11 @@ export default {
       axios(options)
         .then((response) => {
           if (response.status == 201) {
-            console.log(response);
+            this.displaySuccess();
             this.$router.push(`/home?userid=${userid}`);
           }
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => this.displayError(error.data));
     },
   },
 };

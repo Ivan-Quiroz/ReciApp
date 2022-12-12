@@ -68,7 +68,7 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn value="User" @click="logOut">
+      <v-btn value="User" @click="logout">
         <span>Logout</span>
 
         <v-icon>mdi-account</v-icon>
@@ -121,7 +121,7 @@ export default {
     },
 
     logout() {
-      this.$router.push("/login");
+      this.$router.push("login");
     },
   },
 

@@ -9,7 +9,11 @@
 
       <div>
         <h2>Description</h2>
-        <v-list-item-title>{{ recipe.description }}</v-list-item-title>
+        <v-card width="400" height="auto" class="overflow-auto my-4">
+          <v-card-text>
+            {{ recipe.description }}
+          </v-card-text>
+        </v-card>
       </div>
 
       <div class="my-0">
@@ -46,7 +50,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-center">
+  <div class="d-flex justify-center my-8">
     <v-btn color="info" class="mr-4 mx-4" @click="goToEditRecipe">
       edit recipe
     </v-btn>
@@ -62,6 +66,7 @@
 <script>
 //import { defineComponent } from '@vue/composition-api'
 import axios from "axios";
+import Swal from "sweetalert2";
 //const _=require("loadsh");
 
 export default {
@@ -84,6 +89,13 @@ export default {
   },
 
   methods: {
+    displaySuccess() {
+      Swal.fire("", "Recipe deleted successfully", "success");
+    },
+    displayError(error) {
+      Swal.fire("", error, "error");
+    },
+
     getRecipe() {
       const options = {
         method: "GET",
@@ -113,9 +125,10 @@ export default {
       axios(options)
         .then((response) => {
           console.log(response);
+          this.displaySuccess();
           this.$router.push(`/home?userid=${this.recipe.fromUser}`);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => this.displayError(error.data));
     },
 
     goToEditRecipe() {
